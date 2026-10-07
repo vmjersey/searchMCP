@@ -1,0 +1,43 @@
+# OpenSearch MCP Server — connection configuration
+#
+# The server loads this file at startup. Default location: ./config.toml
+# (override with OPENSEARCH_CONFIG=/path/to/config.toml or --config).
+#
+# Precedence: --config/--port/--host CLI flags > OPENSEARCH_* env vars > this file > built-in defaults.
+
+[opensearch]
+host = "localhost"          # OpenSearch host
+port = 9200                 # OpenSearch port
+use_ssl = true              # Use HTTPS
+verify_certs = false        # Verify TLS certificates (false needed for self-signed)
+username = "admin"          # HTTP basic auth username
+password = "YourStrongP@ssword123!"   # HTTP basic auth password
+timeout = 30                # Request timeout in seconds
+
+[server]
+host = "127.0.0.1"          # MCP server bind host (overridable via OPENSEARCH_MCP_HOST or --host)
+port = 9163                  # MCP server port (overridable via OPENSEARCH_MCP_PORT or --port)
+transport = "streamable-http"   # MCP transport: streamable-http, stdio, or sse
+structured_logs = true      # Emit structured JSON access/tool logs.
+enable_metrics = true        # Serve Prometheus /metrics endpoint.
+rate_limit = 300             # Max requests per client per 60s (0 disables).
+max_body_size = 10485760     # Max HTTP request body in bytes (0 disables). 10 MB.
+api_key = "sk-test-secret-2026ateujsnagfvsrh5bdsv5sadfg"  # API key for Bearer auth.  Omit or set empty to disable.
+
+[tools]
+# Only the tools listed below are registered at startup (allowlist).
+# Omit this section entirely to register ALL 27 tools.
+# Unrecognized tool names are silently ignored.
+
+enabled_tools = [
+    "cluster_health",
+    "server_info",
+    "list_indices",
+    "get_index_mapping",
+    "search",
+    "get_document",
+    "count_documents",
+    "sql_query",
+    "field_caps",
+    "validate_query",
+]

@@ -1,0 +1,9 @@
+
+mcp_servers:
+  searchMCP:
+    url: "http://127.0.0.1:9163/mcp"
+    headers:
+      Authorization: "Bearer YOUR SECRET HERE"
+    connect_timeout: 60
+    timeout: 180
+    enabled: true
